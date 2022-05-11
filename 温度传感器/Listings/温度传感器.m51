@@ -1,0 +1,438 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    09/15/2021  14:28:06  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\main.obj, .\Objects\temp.obj TO .\Objects\温度传感器 PRINT (.\Listings\温度传感器.
+>> m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\main.obj (MAIN)
+  .\Objects\temp.obj (TEMP)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPMUL)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FCAST)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?CASTF)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?SIDIV)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?LNEG)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?UIDIV)
+
+
+LINK MAP OF MODULE:  .\Objects\温度传感器 (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0007H     UNIT         ?DT?MAIN
+            DATA    000FH     0006H     UNIT         _DATA_GROUP_
+            IDATA   0015H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0008H     UNIT         ?PR?DS18B20_CHANGE_TEMP?TEMP
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     025EH     UNIT         ?C?LIB_CODE
+            CODE    026CH     0128H     UNIT         ?PR?_TEMPDATA_HANDLE?MAIN
+            CODE    0394H     0092H     UNIT         ?PR?DISPLAY?MAIN
+            CODE    0426H     0035H     UNIT         ?PR?BEE?MAIN
+            CODE    045BH     0027H     UNIT         ?PR?_DS18B20_WRITEBYTE?TEMP
+            CODE    0482H     0024H     UNIT         ?PR?DS18B20_INIT?TEMP
+            CODE    04A6H     0023H     UNIT         ?PR?DS18B20_READBYTE?TEMP
+            CODE    04C9H     0019H     UNIT         ?PR?MAIN?MAIN
+            CODE    04E2H     0018H     UNIT         ?PR?TIME_0?MAIN
+            CODE    04FAH     0016H     UNIT         ?PR?DS18B20_READ_TEMP?TEMP
+            CODE    0510H     0015H     UNIT         ?PR?_DELAY1MS?TEMP
+            CODE    0525H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0531H     000BH     UNIT         ?PR?_DELAY?MAIN
+            CODE    053CH     000AH     UNIT         ?CO?MAIN
+            CODE    0546H     0008H     UNIT         ?PR?DS18B20_READ_TEMP_COMMAND?TEMP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\温度传感器 (MAIN)
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/15/2021  14:28:06  PAGE 2
+
+
+SEGMENT                                      DATA_GROUP 
+  +--> CALLED SEGMENT                      START    LENGTH
+----------------------------------------------------------
+?C_C51STARTUP                              -----    -----
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN                              -----    -----
+  +--> ?PR?DS18B20_READ_TEMP?TEMP
+  +--> ?PR?_TEMPDATA_HANDLE?MAIN
+  +--> ?PR?DISPLAY?MAIN
+
+?PR?DS18B20_READ_TEMP?TEMP                 -----    -----
+  +--> ?PR?DS18B20_CHANGE_TEMP?TEMP
+  +--> ?PR?DS18B20_READ_TEMP_COMMAND?TEMP
+  +--> ?PR?DS18B20_READBYTE?TEMP
+
+?PR?DS18B20_CHANGE_TEMP?TEMP               -----    -----
+  +--> ?PR?_DS18B20_WRITEBYTE?TEMP
+
+?PR?_DS18B20_WRITEBYTE?TEMP                -----    -----
+  +--> ?PR?DS18B20_INIT?TEMP
+  +--> ?PR?_DELAY1MS?TEMP
+
+?PR?DS18B20_INIT?TEMP                      -----    -----
+  +--> ?PR?_DELAY1MS?TEMP
+
+?PR?DS18B20_READ_TEMP_COMMAND?TEMP         -----    -----
+  +--> ?PR?_DS18B20_WRITEBYTE?TEMP
+
+?PR?_TEMPDATA_HANDLE?MAIN                  000FH    0006H
+  +--> ?CO?MAIN
+
+?PR?DISPLAY?MAIN                           -----    -----
+  +--> ?PR?_DELAY?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\温度传感器 (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  D:0008H         PUBLIC        global_temp
+  D:00A8H         PUBLIC        IE
+  C:0531H         PUBLIC        _delay
+  D:00B8H         PUBLIC        IP
+  B:0090H.5       PUBLIC        beep
+  C:026CH         PUBLIC        _tempdata_handle
+  C:04C9H         PUBLIC        main
+  B:0090H.0       PUBLIC        OUT1
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/15/2021  14:28:06  PAGE 3
+
+
+  B:0090H.1       PUBLIC        OUT2
+  C:0426H         PUBLIC        bee
+  D:0098H         PUBLIC        SCON
+  D:0009H         PUBLIC        Tempdata
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:04E2H         PUBLIC        time_0
+  B:00A8H.1       PUBLIC        ET0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  C:0394H         PUBLIC        Display
+  B:00A0H.2       PUBLIC        LSA
+  B:00A0H.3       PUBLIC        LSB
+  B:00A0H.4       PUBLIC        LSC
+  C:053CH         PUBLIC        SMG
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        time
+  C:0531H         LINE#         20
+  C:0531H         LINE#         21
+  C:0531H         LINE#         22
+  C:053BH         LINE#         23
+  -------         ENDPROC       _DELAY
+  -------         PROC          DISPLAY
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:0394H         LINE#         25
+  C:0394H         LINE#         26
+  C:0394H         LINE#         28
+  C:0396H         LINE#         29
+  C:0396H         LINE#         30
+  C:03C3H         LINE#         31
+  C:03C3H         LINE#         32
+  C:03C3H         LINE#         33
+  C:03CEH         LINE#         34
+  C:03CEH         LINE#         35
+  C:03D9H         LINE#         36
+  C:03D9H         LINE#         37
+  C:03E4H         LINE#         38
+  C:03E4H         LINE#         39
+  C:03EFH         LINE#         40
+  C:03EFH         LINE#         41
+  C:03FAH         LINE#         42
+  C:03FAH         LINE#         43
+  C:0405H         LINE#         44
+  C:0405H         LINE#         45
+  C:0409H         LINE#         46
+  C:0409H         LINE#         47
+  C:0412H         LINE#         48
+  C:0412H         LINE#         49
+  C:0419H         LINE#         50
+  C:041CH         LINE#         51
+  C:0425H         LINE#         52
+  -------         ENDPROC       DISPLAY
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/15/2021  14:28:06  PAGE 4
+
+
+  -------         PROC          _TEMPDATA_HANDLE
+  D:000FH         SYMBOL        temp
+  -------         DO            
+  D:0011H         SYMBOL        tp
+  -------         ENDDO         
+  C:026CH         LINE#         54
+  C:0270H         LINE#         55
+  C:0270H         LINE#         58
+  C:0279H         LINE#         59
+  C:0279H         LINE#         60
+  C:027CH         LINE#         61
+  C:0284H         LINE#         62
+  C:028AH         LINE#         63
+  C:028AH         LINE#         64
+  C:028AH         LINE#         65
+  C:028CH         LINE#         67
+  C:028CH         LINE#         68
+  C:028FH         LINE#         69
+  C:029FH         LINE#         70
+  C:02B8H         LINE#         71
+  C:02B8H         LINE#         73
+  C:02D1H         LINE#         74
+  C:02FBH         LINE#         75
+  C:0323H         LINE#         76
+  C:0349H         LINE#         77
+  C:036FH         LINE#         78
+  C:0393H         LINE#         79
+  -------         ENDPROC       _TEMPDATA_HANDLE
+  -------         PROC          BEE
+  -------         DO            
+  D:0002H         SYMBOL        i
+  -------         ENDDO         
+  C:0426H         LINE#         82
+  C:0426H         LINE#         83
+  C:0426H         LINE#         84
+  C:042AH         LINE#         85
+  C:042CH         LINE#         86
+  C:0436H         LINE#         87
+  C:0436H         LINE#         88
+  C:0438H         LINE#         89
+  C:043FH         LINE#         90
+  C:0441H         LINE#         91
+  C:0445H         LINE#         92
+  C:044FH         LINE#         93
+  C:044FH         LINE#         94
+  C:0451H         LINE#         95
+  C:0458H         LINE#         96
+  C:045AH         LINE#         97
+  -------         ENDPROC       BEE
+  -------         PROC          MAIN
+  C:04C9H         LINE#         99
+  C:04C9H         LINE#         100
+  C:04C9H         LINE#         101
+  C:04CBH         LINE#         103
+  C:04CEH         LINE#         105
+  C:04D1H         LINE#         107
+  C:04D3H         LINE#         109
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/15/2021  14:28:06  PAGE 5
+
+
+  C:04D5H         LINE#         110
+  C:04D7H         LINE#         111
+  C:04D9H         LINE#         113
+  C:04DFH         LINE#         114
+  -------         ENDPROC       MAIN
+  -------         PROC          TIME_0
+  C:04E2H         LINE#         118
+  C:04E6H         LINE#         120
+  C:04EDH         LINE#         122
+  C:04EFH         LINE#         124
+  C:04F1H         LINE#         125
+  C:04F3H         LINE#         127
+  C:04F3H         LINE#         128
+  C:04F5H         LINE#         129
+  C:04F5H         LINE#         130
+  -------         ENDPROC       TIME_0
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        TEMP
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:04A6H         PUBLIC        DS18B20_ReadByte
+  C:0482H         PUBLIC        DS18B20_Init
+  C:0546H         PUBLIC        DS18B20_Read_Temp_Command
+  C:0510H         PUBLIC        _delay1ms
+  C:0467H         PUBLIC        _DS18B20_WriteByte
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0003H         PUBLIC        DS18B20_Change_Temp
+  B:00B0H.7       PUBLIC        DSPORT
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  C:04FAH         PUBLIC        DS18B20_Read_Temp
+  -------         PROC          _DELAY1MS
+  D:0006H         SYMBOL        time
+  -------         DO            
+  D:0005H         SYMBOL        x
+  -------         ENDDO         
+  C:0510H         LINE#         4
+  C:0510H         LINE#         5
+  C:0510H         LINE#         7
+  C:0519H         LINE#         8
+  C:0519H         LINE#         9
+  C:051DH         LINE#         10
+  C:0524H         LINE#         11
+  -------         ENDPROC       _DELAY1MS
+  -------         PROC          DS18B20_INIT
+  -------         DO            
+  D:0004H         SYMBOL        time
+  -------         ENDDO         
+  C:0482H         LINE#         14
+  C:0482H         LINE#         15
+  C:0482H         LINE#         18
+  C:0484H         LINE#         20
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/15/2021  14:28:06  PAGE 6
+
+
+  C:0486H         LINE#         21
+  C:048CH         LINE#         23
+  C:048EH         LINE#         25
+  C:048FH         LINE#         27
+  C:0492H         LINE#         28
+  C:0492H         LINE#         29
+  C:0499H         LINE#         30
+  C:049AH         LINE#         31
+  C:04A0H         LINE#         32
+  C:04A3H         LINE#         33
+  C:04A3H         LINE#         34
+  C:04A5H         LINE#         35
+  -------         ENDPROC       DS18B20_INIT
+  -------         PROC          L?0030
+  -------         ENDPROC       L?0030
+  -------         PROC          _DS18B20_WRITEBYTE
+  D:0007H         SYMBOL        dat
+  -------         DO            
+  D:0005H         SYMBOL        i
+  D:0006H         SYMBOL        time
+  -------         ENDDO         
+  C:0467H         LINE#         37
+  C:0467H         LINE#         38
+  C:0467H         LINE#         39
+  C:0468H         LINE#         40
+  C:0469H         LINE#         41
+  C:0469H         LINE#         43
+  C:046BH         LINE#         45
+  C:046BH         LINE#         47
+  C:046FH         LINE#         49
+  C:0471H         LINE#         50
+  C:0477H         LINE#         52
+  C:0479H         LINE#         54
+  C:047DH         LINE#         56
+  C:0481H         LINE#         57
+  -------         ENDPROC       _DS18B20_WRITEBYTE
+  -------         PROC          DS18B20_READBYTE
+  -------         DO            
+  D:0005H         SYMBOL        i
+  D:0006H         SYMBOL        time
+  D:0006H         SYMBOL        data_bit
+  D:0007H         SYMBOL        data_byte
+  -------         ENDDO         
+  C:04A6H         LINE#         59
+  C:04A6H         LINE#         60
+  C:04A6H         LINE#         62
+  C:04A7H         LINE#         65
+  C:04A8H         LINE#         66
+  C:04A8H         LINE#         68
+  C:04AAH         LINE#         70
+  C:04AAH         LINE#         72
+  C:04ACH         LINE#         74
+  C:04ACH         LINE#         75
+  C:04ACH         LINE#         77
+  C:04B0H         LINE#         79
+  C:04BCH         LINE#         81
+  C:04BEH         LINE#         82
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/15/2021  14:28:06  PAGE 7
+
+
+  C:04C4H         LINE#         83
+  C:04C8H         LINE#         84
+  C:04C8H         LINE#         85
+  -------         ENDPROC       DS18B20_READBYTE
+  -------         PROC          DS18B20_CHANGE_TEMP
+  C:0003H         LINE#         87
+  C:0003H         LINE#         88
+  C:0003H         LINE#         89
+  C:0003H         LINE#         90
+  C:0003H         LINE#         91
+  C:0006H         LINE#         92
+  -------         ENDPROC       DS18B20_CHANGE_TEMP
+  -------         PROC          DS18B20_READ_TEMP_COMMAND
+  C:0546H         LINE#         95
+  C:0546H         LINE#         96
+  C:0546H         LINE#         97
+  C:0546H         LINE#         98
+  C:0546H         LINE#         99
+  C:0549H         LINE#         100
+  -------         ENDPROC       DS18B20_READ_TEMP_COMMAND
+  -------         PROC          DS18B20_READ_TEMP
+  -------         DO            
+  D:0006H         SYMBOL        temp
+  D:0003H         SYMBOL        temp_low
+  D:0007H         SYMBOL        temp_high
+  -------         ENDDO         
+  C:04FAH         LINE#         103
+  C:04FAH         LINE#         104
+  C:04FAH         LINE#         105
+  C:04FDH         LINE#         107
+  C:0500H         LINE#         108
+  C:0503H         LINE#         109
+  C:0508H         LINE#         110
+  C:050BH         LINE#         111
+  C:050BH         LINE#         112
+  C:050FH         LINE#         113
+  C:050FH         LINE#         114
+  -------         ENDPROC       DS18B20_READ_TEMP
+  -------         ENDMOD        TEMP
+
+  -------         MODULE        ?C?FPMUL
+  C:000EH         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?FCAST
+  C:011EH         PUBLIC        ?C?FCASTC
+  C:0119H         PUBLIC        ?C?FCASTI
+  C:0114H         PUBLIC        ?C?FCASTL
+  -------         ENDMOD        ?C?FCAST
+
+  -------         MODULE        ?C?CASTF
+  C:0152H         PUBLIC        ?C?CASTF
+  -------         ENDMOD        ?C?CASTF
+
+  -------         MODULE        ?C?SIDIV
+  C:01D3H         PUBLIC        ?C?SIDIV
+  -------         ENDMOD        ?C?SIDIV
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/15/2021  14:28:06  PAGE 8
+
+
+
+  -------         MODULE        ?C?LNEG
+  C:0209H         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+  -------         MODULE        ?C?UIDIV
+  C:0217H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?BEE?MAIN
+
+Program Size: data=22.0 xdata=0 code=1358
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

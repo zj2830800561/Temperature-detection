@@ -1,0 +1,4 @@
+".\Objects\main.obj",
+".\Objects\temp.obj" 
+TO ".\Objects\温度传感器" 
+PRINT(".\Listings\温度传感器.m51") RAMSIZE(256) 

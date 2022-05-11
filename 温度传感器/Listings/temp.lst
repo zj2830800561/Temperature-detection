@@ -1,0 +1,142 @@
+C51 COMPILER V9.57.0.0   TEMP                                                              09/15/2021 14:28:06 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE TEMP
+OBJECT MODULE PLACED IN .\Objects\temp.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE temp.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\temp
+                    -.lst) TABS(2) OBJECT(.\Objects\temp.obj)
+
+line level    source
+
+   1          #include<temp.h>
+   2          
+   3          //延时函数 （单位：ms）
+   4          void delay1ms(uint time)
+   5          {
+   6   1          uchar x;
+   7   1          for(; time > 0; time--)
+   8   1          {
+   9   2                for(x = 110; x > 0; x--);
+  10   2          }
+  11   1      }
+  12          
+  13          //  初始化：返回值0表示温度传感器不存在，为1表示存在
+  14          uchar DS18B20_Init()
+  15          {
+  16   1          uchar time;
+  17   1          //(1)、数据线拉到低电平“0”
+  18   1          DSPORT = 0;
+  19   1          //(2)、延时480微秒（该时间的时间范围可以从480到960微妙）。
+  20   1          time = 70;
+  21   1          while(time--);//642us
+  22   1          //(3)、数据线拉到高电平“1”
+  23   1          DSPORT = 1;
+  24   1          //(4)、延时等待80微秒
+  25   1          time = 0;
+  26   1          //根据传感器返回值0 || 1 判断是否成功 + 超时判断
+  27   1          while(DSPORT)
+  28   1          {
+  29   2                delay1ms(1);
+  30   2                time++;
+  31   2                if(time>5)
+  32   2                      return 0;     //返回初始化失败标志
+  33   2          }
+  34   1          return 1;                 //返回初始化成功标志
+  35   1      }
+  36          //  写数据：  数据从低位到高位的顺序发送
+  37          void DS18B20_WriteByte(uchar dat)
+  38          {
+  39   1          uchar i, time = 0;
+  40   1          for(i = 0; i < 8; i++)
+  41   1          {
+  42   2                //(1)、数据线先置低电平“0”
+  43   2                DSPORT = 0;
+  44   2                //(2)、延时15微妙。
+  45   2                time++;
+  46   2                //(3)、按从低位到高位的顺序发送数据(一次只发送一位)。
+  47   2                DSPORT = dat & 0x01;      //按位与运算
+  48   2                //(4)、延时60微妙。
+  49   2                time = 6;
+  50   2                while(time--);            //约68us
+  51   2                //(5)、将数据线拉到高电平。
+  52   2                DSPORT = 1;
+  53   2                //数据移位，即下次发送下一位数据
+  54   2                dat >>= 1;
+C51 COMPILER V9.57.0.0   TEMP                                                              09/15/2021 14:28:06 PAGE 2   
+
+  55   2            
+  56   2          }
+  57   1      }
+  58          //  读数据： 数据从低位到高位开始读取
+  59          uchar DS18B20_ReadByte()
+  60          {
+  61   1      
+  62   1            uchar i, time = 0;
+  63   1            uchar data_bit, data_byte;
+  64   1            //重复读取1位数据，直到读完一个字节
+  65   1            for(i = 0; i < 8; i++)
+  66   1            {
+  67   2                  //(1)、将数据线拉低“0”
+  68   2                  DSPORT = 0;
+  69   2                  //(2).延时1微秒。
+  70   2                  time++;
+  71   2                  //(3)、将数据线拉高“1”,释放总线准备读数据。
+  72   2                  DSPORT = 1;
+  73   2                  //(4).延时10微秒。
+  74   2                  time++;
+  75   2                  time++;
+  76   2                  //(5).读数据线的状态得到1个状态位，并进行数据处理。
+  77   2                  data_bit = DSPORT;
+  78   2                  //        ：byte右移一位，最高位即为bit左移7位得到的有效数据
+  79   2                  data_byte = (data_byte >> 1) | (data_bit << 7);
+  80   2                  //(6).延时45微妙。
+  81   2                  time = 4;
+  82   2                  while(time--);
+  83   2            }
+  84   1            return data_byte;
+  85   1      }
+  86          //  温度变换： 使BS18B20改变温度
+  87          void DS18B20_Change_Temp()
+  88          {
+  89   1            DS18B20_Init();                   //温度传感器初始化
+  90   1            delay1ms(1);                      //延时1毫秒
+  91   1            DS18B20_WriteByte(0xcc);          //忽略64位rom，直接向温度传感器发送命令
+  92   1            DS18B20_WriteByte(0x44);          //启动温度变换，转换时长750ms
+  93   1      }
+  94          //  发送读取指令： 准备读取温度数据
+  95          void DS18B20_Read_Temp_Command()
+  96          {
+  97   1            DS18B20_Init();                   //温度传感器初始化
+  98   1            delay1ms(1);                      //延时1毫秒
+  99   1            DS18B20_WriteByte(0xcc);          //忽略64位rom，直接向温度传感器发送命令
+ 100   1            DS18B20_WriteByte(0xbe);          //发送读暂存器指令，准备读取温度数据
+ 101   1      }
+ 102          //  读取数据：
+ 103          int DS18B20_Read_Temp()
+ 104          {
+ 105   1            int temp = 0;                     //  将返回的温度值
+ 106   1            uchar temp_low, temp_high;        //  两个字节的值，将组合成温度值
+ 107   1            DS18B20_Change_Temp();            //  使BS18B20改变温度
+ 108   1            DS18B20_Read_Temp_Command();      //  准备读取温度数据
+ 109   1            temp_low = DS18B20_ReadByte();    //  低字节
+ 110   1            temp_high = DS18B20_ReadByte();   //  高字节
+ 111   1            temp = temp_high;                 //  将高位数据temp_high先写入temp
+ 112   1            temp = (temp<<8) | temp_low;      //  或运算加入temp_low至温度值中
+ 113   1            return temp;                      //  返回温度值
+ 114   1      }
+
+
+C51 COMPILER V9.57.0.0   TEMP                                                              09/15/2021 14:28:06 PAGE 3   
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    169    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
